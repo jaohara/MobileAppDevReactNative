@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Text, FlatList, View } from 'react-native';
+
+import { DarkModeContext } from '../../App';
+
+import { getStyles } from '../../styles/styles';
 
 import Header from '../Header';
 import ListItem from '../ListItem';
@@ -19,9 +23,12 @@ const exampleList = [
 const renderListItem = (item) => (<ListItem>{item}</ListItem>)
 
 const HomeScreen = ({ children }) => {
-  return (
-    <Screen title={homeScreenTitle}>
-      <Text>
+  const { isDarkMode } = useContext(DarkModeContext);
+  const styles = getStyles(isDarkMode);
+
+  const getListHeaderComponent = () => (
+    <>
+      <Text style={styles.text}>
         This is an example of a React Native application. It is for my Mobile App Development class.
         By using React Native, I can use JavaScript and the React framework to create and render UIs
         with system native components without using the mobile platform's preferred language, such as 
@@ -30,13 +37,16 @@ const HomeScreen = ({ children }) => {
       </Text>
 
       <Header>FlatList Example</Header>
-x
-      <View>
-        <FlatList
-          data={exampleList}
-          renderItem={({item}) => renderListItem(item)}
-        />
-      </View>
+    </>
+  );
+
+  return (
+    <Screen title={homeScreenTitle} isScrollView={false}>
+      <FlatList
+        data={exampleList}
+        ListHeaderComponent={getListHeaderComponent()}
+        renderItem={({item}) => renderListItem(item)}
+      />
     </Screen>
   );
 };

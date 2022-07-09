@@ -1,60 +1,56 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * @format
- * @flow strict-local
- */
+import React, { useEffect, useState } from 'react';
+import SystemNavigationBar from 'react-native-system-navigation-bar';
 
-import React from 'react';
-
-import Header from './components/Header';
 import HomeScreen from './components/Screens/HomeScreen';
 
-import {
-  SafeAreaView,
-  StatusBar,
-  useColorScheme,
-} from 'react-native';
+import { SafeAreaView, StatusBar, useColorScheme } from 'react-native';
 
-import { styles, isDarkMode, statusBarBgColor } from './styles/styles';
+import { getStyles, getStatusBarColor } from './styles/styles';
 
-
-
+export const DarkModeContext = React.createContext();
 
 const App = () => {
+  // const [ isDarkMode, setIsDarkMode ] = useState(useColorScheme() === 'dark');
   const isDarkMode = useColorScheme() === 'dark';
-  
+  const [ styles, setStyles ] = useState(getStyles(isDarkMode));
+  const statusBarBgColor = getStatusBarColor(isDarkMode);
+
+  const getContextValue = () => {
+    return ({
+      isDarkMode: isDarkMode,
+    });
+  };
+
+  useEffect(() => {
+    console.log(`App.isDarkMode: ${isDarkMode}`);
+    console.log(`App.styles: ${JSON.stringify(styles)}`);
+
+    // console.log("Manually testing return values...");
+    
+  }, []);
+
+  useEffect(() => {
+    setStyles(getStyles(isDarkMode));
+  }, [isDarkMode])
+
+  const getContainerStyles = () => ({
+    ...styles.backgroundStyle,
+    ...styles.container,
+  });
+
+  SystemNavigationBar.setNavigationColor(styles.backgroundStyle.backgroundColor);
+
   return (
-    <SafeAreaView style={styles.backgroundStyle}>
-
-
-      {
-        // keeping this, but flipping the 
-      }
-      <StatusBar
-        backgroundColor={statusBarBgColor} 
-        barStyle={!isDarkMode ? 'light-content' : 'dark-content'} 
-        />
-      
-      <HomeScreen />
-
-      {/* <Header>Test Header 1</Header>
-
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={styles.backgroundStyle}>
-
-      <Header>Test Header 2</Header>
-
-        <View
-          style={styles.backgroundStyle}>
-
-
-        </View>
-      </ScrollView> */}
-
-    </SafeAreaView>
+    <DarkModeContext.Provider value={getContextValue()}>
+      <SafeAreaView style={getContainerStyles()}>
+        <StatusBar
+          backgroundColor={statusBarBgColor} 
+          barStyle={!isDarkMode ? 'light-content' : 'dark-content'} 
+          />
+        
+        <HomeScreen />
+      </SafeAreaView>
+    </DarkModeContext.Provider>
   );
 };
 

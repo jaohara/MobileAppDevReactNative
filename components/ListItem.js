@@ -1,13 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import { Text, View } from 'react-native';
 
-import { styles } from '../styles/styles';
+import { DarkModeContext } from '../App';
+
+import { getStyles } from '../styles/styles';
+
 
 const ListItem = ({ children }) => {
+  const { isDarkMode } = useContext(DarkModeContext);
+  const styles = getStyles(isDarkMode);
+
+
+
   return (
     <View style={styles.listItem}>
-      <Text>{children}</Text>
+      <Text style={styles.text}>{children}</Text>
     </View>
   )
 };
