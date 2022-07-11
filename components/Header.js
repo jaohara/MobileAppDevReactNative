@@ -1,13 +1,11 @@
 import React, { useContext } from 'react';
 import { Text } from "react-native";
-import { getStyles } from '../styles/styles';
 
-import { DarkModeContext } from '../App';
+import useStyles from '../hooks/useStyles';
 
 const Header = ({ children }) => {
-  // future note - this whole pattern should probably be a hook
-  const { isDarkMode } = useContext(DarkModeContext);
-  const styles = getStyles(isDarkMode);
+  const { styles } = useStyles();
+
 
   return (
     <Text style={styles.header}>

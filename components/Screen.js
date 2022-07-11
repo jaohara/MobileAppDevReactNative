@@ -1,32 +1,32 @@
-import React, { useContext } from 'react';
+import React from 'react';
 
 import { ScrollView, View } from 'react-native';
 
 import Header from './Header';
 
-import { DarkModeContext } from '../App';
-import { getStyles } from '../styles/styles';
+import useStyles from '../hooks/useStyles';
 
 
 const Screen = ({ children, isScrollView = true, title }) => {
-  const { isDarkMode } = useContext(DarkModeContext);
-  const styles = getStyles(isDarkMode);
+  const { styles } = useStyles();
 
   const renderView = () => {
     const viewChildren = React.Children.map(children, (child) => 
       React.cloneElement(child, { style: styles.screenText }));
+
+    const viewStyle = {...styles.backgroundStyle, ...styles.screen};
 
     return (
       isScrollView ? (
         <ScrollView
           children={viewChildren}
           contentInsetAdjustmentBehavior='automatic'
-          style={styles.backgroundStyle}
+          style={viewStyle}
         />
       ) : (
         <View
           children={viewChildren}
-          style={styles.backgroundStyle}
+          style={viewStyle}
         />
       )
     )
@@ -34,21 +34,10 @@ const Screen = ({ children, isScrollView = true, title }) => {
 
   return (
     <>
-      <Header>{ title }</Header>
       {
+      // <Header>{ title }</Header>
         renderView()
       }
-      {/* <ScrollView
-        contentInsetAdjustmentBehavior='automatic'
-        style={styles.backgroundStyle}>
-        {
-          React.Children.map(children, (child) => 
-            React.cloneElement(child, {
-              style: styles.screenText
-            })
-          )
-        }
-      </ScrollView> */}
     </>
   );
 }

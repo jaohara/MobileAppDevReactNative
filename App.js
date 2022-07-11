@@ -1,32 +1,43 @@
 import React, { useEffect, useState } from 'react';
-import SystemNavigationBar from 'react-native-system-navigation-bar';
 
-import HomeScreen from './components/Screens/HomeScreen';
+import SystemNavigationBar from 'react-native-system-navigation-bar';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
 import { SafeAreaView, StatusBar, useColorScheme } from 'react-native';
 
+import NavHeader from './components/NavHeader';
+import Header from './components/Header';
+
+import HomeScreen from './components/Screens/HomeScreen';
+import PeopleScreen from './components/Screens/PeopleScreen';
+import PersonDetailScreen from './components/Screens/PersonDetailsScreen';
+
 import { getStyles, getStatusBarColor } from './styles/styles';
 
-export const DarkModeContext = React.createContext();
+export const AppContext = React.createContext();
+const Stack = createNativeStackNavigator();
+
+const DEBUG_LOGGING = true;
 
 const App = () => {
-  // const [ isDarkMode, setIsDarkMode ] = useState(useColorScheme() === 'dark');
   const isDarkMode = useColorScheme() === 'dark';
   const [ styles, setStyles ] = useState(getStyles(isDarkMode));
   const statusBarBgColor = getStatusBarColor(isDarkMode);
 
   const getContextValue = () => {
+    // hardcoding peopleApiRoute for now, probably should be in .env
     return ({
       isDarkMode: isDarkMode,
+      peopleApiRoute: "https://fakerapi.it/api/v1/users?_quantity=10",
     });
   };
 
   useEffect(() => {
-    console.log(`App.isDarkMode: ${isDarkMode}`);
-    console.log(`App.styles: ${JSON.stringify(styles)}`);
-
-    // console.log("Manually testing return values...");
-    
+    if (DEBUG_LOGGING) {
+      console.log(`App.isDarkMode: ${isDarkMode}`);
+      console.log(`App.styles: ${JSON.stringify(styles)}`);
+    }
   }, []);
 
   useEffect(() => {
@@ -40,17 +51,40 @@ const App = () => {
 
   SystemNavigationBar.setNavigationColor(styles.backgroundStyle.backgroundColor);
 
+  const getNavHeader = ({ navigator, route, options }) => (    
+    <NavHeader
+      onBackPress={navigator ? navigator.goBack : () => {}}
+    >
+      {route.name}
+    </NavHeader>
+  );
+
+  const getNavStack = () => (
+    <Stack.Navigator
+      screenOptions={{
+        header: (headerObj) => getNavHeader(headerObj),
+      }}
+    >
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="People" component={PeopleScreen} />
+      <Stack.Screen name="Person" component={PersonDetailScreen} />
+    </Stack.Navigator>
+  );
+
   return (
-    <DarkModeContext.Provider value={getContextValue()}>
-      <SafeAreaView style={getContainerStyles()}>
-        <StatusBar
-          backgroundColor={statusBarBgColor} 
-          barStyle={!isDarkMode ? 'light-content' : 'dark-content'} 
-          />
+    <NavigationContainer>
+      <AppContext.Provider value={getContextValue()}>
+        <SafeAreaView style={getContainerStyles()}>
+          <StatusBar
+            backgroundColor={statusBarBgColor} 
+            barStyle={!isDarkMode ? 'light-content' : 'dark-content'} 
+            />
+
+          { getNavStack() }
         
-        <HomeScreen />
-      </SafeAreaView>
-    </DarkModeContext.Provider>
+        </SafeAreaView>
+      </AppContext.Provider>
+    </NavigationContainer>
   );
 };
 

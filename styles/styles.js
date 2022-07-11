@@ -26,6 +26,16 @@ export const getStyles = (isDarkMode) => {
     backgroundStyle: {
       ...adaptiveDarkModeColors,
     },
+    buttons: {
+      borderRadius: 8,
+      color: colors.green,
+      margin: 8,
+    },
+    buttonWrapper: {
+      // height: 48,
+      width: 64,
+      padding: 8
+    },
     container: {
       flex: 1,
     },
@@ -37,7 +47,9 @@ export const getStyles = (isDarkMode) => {
       fontSize: 24,
       fontWeight: '700',
       padding: 16,
-      textAlign: "center",
+      paddingLeft: 24,
+      paddingRight: 24,
+      // textAlign: "center",
       boxShadowColor: colors.darkGray,
     },
     listItem: {
@@ -46,6 +58,9 @@ export const getStyles = (isDarkMode) => {
       borderRadius: 8,
       padding: 12,
       marginBottom: 16,
+    },
+    navWrapper: {
+      flexDirection: "row",
     },
     screen: {
       ...adaptiveDarkModeColors,

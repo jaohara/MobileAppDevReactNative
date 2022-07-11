@@ -1,10 +1,8 @@
 import React, { useContext } from 'react';
 
-import { Text, FlatList, View } from 'react-native';
+import { Text, FlatList, View, Button } from 'react-native';
 
-import { DarkModeContext } from '../../App';
-
-import { getStyles } from '../../styles/styles';
+import useStyles from '../../hooks/useStyles';
 
 import Header from '../Header';
 import ListItem from '../ListItem';
@@ -22,9 +20,8 @@ const exampleList = [
 
 const renderListItem = (item) => (<ListItem>{item}</ListItem>)
 
-const HomeScreen = ({ children }) => {
-  const { isDarkMode } = useContext(DarkModeContext);
-  const styles = getStyles(isDarkMode);
+const HomeScreen = ({ navigation, children }) => {
+  const { styles } = useStyles();
 
   const getListHeaderComponent = () => (
     <>
@@ -41,11 +38,21 @@ const HomeScreen = ({ children }) => {
   );
 
   return (
-    <Screen title={homeScreenTitle} isScrollView={false}>
-      <FlatList
+    <Screen title={homeScreenTitle}>
+      {/* <FlatList
         data={exampleList}
         ListHeaderComponent={getListHeaderComponent()}
         renderItem={({item}) => renderListItem(item)}
+      /> */}
+      <Text style={styles.text}>
+        This is the home screen. From here I will navigate to 
+        other screens and see if I can find my way back.
+      </Text>
+
+      <Button
+        title='People Screen'
+        onPress={() => navigation && navigation.navigate("People")}
+        color={styles.buttons.color}
       />
     </Screen>
   );
