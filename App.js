@@ -61,8 +61,15 @@ const App = () => {
 
   const getNavStack = () => (
     <Stack.Navigator
+      initialRouteName='Home'
       screenOptions={{
-        header: (headerObj) => getNavHeader(headerObj),
+        headerBackVisible: true,
+        headerShadowVisible: false,
+        // header: (headerObj) => getNavHeader(headerObj),
+        headerStyle: {
+          backgroundColor: styles.backgroundStyle.backgroundColor
+        },
+        headerTintColor: styles.backgroundStyle.color,
       }}
     >
       <Stack.Screen name="Home" component={HomeScreen} />

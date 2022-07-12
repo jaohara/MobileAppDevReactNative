@@ -9,9 +9,27 @@ const PersonListItem = ({ children, person }) => {
 
   return (
     <View style={styles.listItem}>
-      <Text style={styles.text}>
-        {`${person.firstname} ${person.lastname}`}
-      </Text>
+      <Image
+        source={{uri: `${person.image}/${Math.random()}`}}
+        style={styles.personListItemImage}
+      />
+      <View style={styles.personListItemTextWrapper}>
+        <Text style={{...styles.text, ...styles.nameText}}>
+          {`${person.firstname} ${person.lastname}`}
+        </Text>
+
+        <Text style={{...styles.text, ...styles.detailText}}>
+          {person.username}
+        </Text>
+
+        <Text style={{...styles.text, ...styles.detailText}}>
+          {person.email}
+        </Text>
+
+        <Text style={{...styles.text, ...styles.detailText}}>
+          {person.website}
+        </Text>
+      </View>
     </View>
   );
 };

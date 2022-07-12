@@ -13,5 +13,4 @@
   - [ ] Figure out how to pass person's data to the next screen (props via something with the navigator? modify the global context object?)
   - [ ] Wrap the `PersonListItem` component in a `TouchableOpacity` to allow navigation to `PersonDetailsScreen`
 - [ ] Display `person.image` in an `Image` component within `PersonListItem`
-- [ ] Allow navigation back to each screen's parent (`Home -> People -> Person Details`) in the status bar
-  - [ ] Figure out best solution for button in nav bar - is there something native that I can enable, or should I use a `TouchableOpacity` wrapper to make button styling easier?
+- [x] Allow navigation back to each screen's parent (`Home -> People -> Person Details`) in the status bar

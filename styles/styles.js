@@ -56,11 +56,27 @@ export const getStyles = (isDarkMode) => {
       ...adaptiveDarkModeColors,
       backgroundColor: isDarkMode ? colors.darkGrayLight : colors.lightGray,
       borderRadius: 8,
+      flex: 1,
+      flexDirection: "row",
       padding: 12,
       marginBottom: 16,
     },
+    nameText: {
+      color: colors.blue,
+      fontWeight: "bold",
+      fontSize: 16,
+    },
     navWrapper: {
       flexDirection: "row",
+    },
+    personListItemImage:{
+      borderRadius: 8,
+      height: 64,
+      width: 64,
+      resizeMode: "cover",
+    },
+    personListItemTextWrapper: {
+      marginLeft: 12,
     },
     screen: {
       ...adaptiveDarkModeColors,
