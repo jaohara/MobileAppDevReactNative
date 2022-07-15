@@ -1,37 +1,38 @@
 import React from 'react';
 
-import { Image, Text, View } from 'react-native';
+import { Text, TouchableHighlight, View } from 'react-native';
+import Icon from 'react-native-vector-icons/dist/Ionicons';
 
 import useStyles from '../hooks/useStyles';
+import { colors } from '../styles/styles';
 
-const PersonListItem = ({ children, person }) => {
+const PersonListItem = ({ navigation, person, setCurrentPerson }) => {
   const { styles } = useStyles();
 
+  const handlePress = () => {
+    setCurrentPerson(person);
+    navigation && navigation.navigate("Person");
+  }
+
   return (
-    <View style={styles.listItem}>
-      <Image
-        source={{uri: `${person.image}/${Math.random()}`}}
-        style={styles.personListItemImage}
-      />
-      <View style={styles.personListItemTextWrapper}>
-        <Text style={{...styles.text, ...styles.nameText}}>
-          {`${person.firstname} ${person.lastname}`}
-        </Text>
-
-        <Text style={{...styles.text, ...styles.detailText}}>
-          {person.username}
-        </Text>
-
-        <Text style={{...styles.text, ...styles.detailText}}>
-          {person.email}
-        </Text>
-
-        <Text style={{...styles.text, ...styles.detailText}}>
-          {person.website}
-        </Text>
+    <TouchableHighlight
+      onPress={() => handlePress()}
+    >
+      <View style={styles.listItem}>
+        <Icon
+          color={colors.blue}
+          name="person-circle"
+          size={32}
+          />
+        <View style={styles.personListItemTextWrapper}>
+          <Text style={{...styles.text, ...styles.nameText}}>
+            {`${person.firstname} ${person.lastname}`}
+          </Text>
+        </View>
       </View>
-    </View>
+    </TouchableHighlight>
   );
 };
 
 export default PersonListItem;
+

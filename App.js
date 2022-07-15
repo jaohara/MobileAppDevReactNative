@@ -25,11 +25,31 @@ const App = () => {
   const [ styles, setStyles ] = useState(getStyles(isDarkMode));
   const statusBarBgColor = getStatusBarColor(isDarkMode);
 
+  const [ currentPerson, setCurrentPerson ] = useState(null);
+  const [ people, setPeople ] = useState([]);
+  const [ peopleLoaded, setPeopleLoaded ] = useState(false);
+  const [ peopleImages, setPeopleImages ] = useState([]);
+  const [ peopleImagesLoaded, setPeopleImagesLoaded ] = useState(false);
+
+  const peopleScreenProps = {
+    currentPerson: currentPerson,
+    people: people,
+    // peopleImages: peopleImages,
+    // peopleImagesLoaded: peopleImagesLoaded,
+    peopleLoaded: peopleLoaded,
+    setCurrentPerson: setCurrentPerson,
+    setPeople: setPeople,
+    // setPeopleImages: setPeopleImages,
+    // setPeopleImagesLoaded: setPeopleImagesLoaded,
+    setPeopleLoaded: setPeopleLoaded,
+  };
+
   const getContextValue = () => {
     // hardcoding peopleApiRoute for now, probably should be in .env
     return ({
       isDarkMode: isDarkMode,
       peopleApiRoute: "https://fakerapi.it/api/v1/users?_quantity=10",
+      ...peopleScreenProps,
     });
   };
 
@@ -72,9 +92,22 @@ const App = () => {
         headerTintColor: styles.backgroundStyle.color,
       }}
     >
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="People" component={PeopleScreen} />
-      <Stack.Screen name="Person" component={PersonDetailScreen} />
+      <Stack.Screen 
+        name="Home" 
+        component={HomeScreen} 
+      />
+
+      <Stack.Screen 
+        name="People" 
+        component={PeopleScreen} 
+        // initialParams={peopleScreenProps}
+      />
+      
+      <Stack.Screen 
+        name="Person" 
+        component={PersonDetailScreen}
+        // initialParams={peopleScreenProps}
+      />
     </Stack.Navigator>
   );
 

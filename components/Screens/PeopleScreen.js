@@ -7,23 +7,42 @@ import PersonListItem from '../PersonListItem';
 
 import { AppContext } from '../../App';
 
-import useStyles from '../../hooks/useStyles';
+const PeopleScreen = ({ navigation, children }) => {
+  const {
+    currentPerson,
+    people,
+    peopleLoaded,
+    peopleApiRoute, 
+    setCurrentPerson,
+    setPeople, 
+    setPeopleLoaded, 
+  } = useContext(AppContext);
 
-const PeopleScreen = ({ children }) => {
-  const { styles } = useStyles();
-  const { peopleApiRoute } = useContext(AppContext);
+  const renderListItem = (item) => 
+    (<PersonListItem
+      navigation={navigation}
+      person={item} 
+      setCurrentPerson={setCurrentPerson}
+    />);
 
-  const [ people, setPeople ] = useState([]);
-
-  const renderListItem = (item) => (<PersonListItem person={item} />);
+  const fetchPeople = () => {
+    !peopleLoaded && fetch(peopleApiRoute)
+      .then(res => res.json())
+      .then(json => {
+        setPeople(json.data)
+        setPeopleLoaded(true);
+      })
+      .catch(err => console.error(err));
+  }
 
   useEffect(() => {
-    // call fetch on peopleApiRoute
-    fetch(peopleApiRoute)
-      .then(res => res.json())
-      .then(json => setPeople(json.data))
-      .catch(err => console.error(err));
+    fetchPeople();
   }, []);
+
+  useEffect(() => {
+    console.log("currentPerson: ");
+    console.log(currentPerson);
+  }, [currentPerson])
 
   return (
     <Screen isScrollView={false}>

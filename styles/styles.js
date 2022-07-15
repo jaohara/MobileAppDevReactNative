@@ -62,13 +62,22 @@ export const getStyles = (isDarkMode) => {
       marginBottom: 16,
     },
     nameText: {
-      color: colors.blue,
+      // color: colors.blue,
       fontWeight: "bold",
       fontSize: 16,
     },
     navWrapper: {
       flexDirection: "row",
     },
+    personDetailIcon: {
+      marginRight:8,
+    },
+    personDetailWrapper: {
+      flex: 1,
+      flexDirection: "row",
+      marginBottom: 2,
+      marginTop: 2,
+    }, 
     personListItemImage:{
       borderRadius: 8,
       height: 64,
@@ -76,7 +85,9 @@ export const getStyles = (isDarkMode) => {
       resizeMode: "cover",
     },
     personListItemTextWrapper: {
+      flex: 1,
       marginLeft: 12,
+      justifyContent: "center",
     },
     screen: {
       ...adaptiveDarkModeColors,
