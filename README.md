@@ -9,8 +9,11 @@
 ## HW 9 - Hooked on React Native
 - [x] Add People and Person Detail screens
 - [x] Retrieve person data from the API when the People Screen loads
-- [ ] Make the list items in the People screen function as links to the Person Detail screen with the given person's data selected
-  - [ ] Figure out how to pass person's data to the next screen (props via something with the navigator? modify the global context object?)
-  - [ ] Wrap the `PersonListItem` component in a `TouchableOpacity` to allow navigation to `PersonDetailsScreen`
-- [ ] Display `person.image` in an `Image` component within `PersonListItem`
+- [x] Make the list items in the People screen function as links to the Person Detail screen with the given person's data selected
+  - [x] Figure out how to pass person's data to the next screen (props via something with the navigator? modify the global context object?)
+  - [x] Wrap the `PersonListItem` component in a `TouchableOpacity` to allow navigation to `PersonDetailsScreen`
 - [x] Allow navigation back to each screen's parent (`Home -> People -> Person Details`) in the status bar
+- [ ] Complete `PeopleScreen.js` to display the person's image, as well as a list of their details
+- [ ] Make loading view components to display while the page is loading?
+- [ ] Fix styling errors with `TouchableOpacity` on list item (whole background changing to black)
+- [ ] Remove button for navigation from `Home -> People` and make a more attractive `TouchableOpacity`-based nav card
