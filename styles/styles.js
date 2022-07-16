@@ -72,6 +72,21 @@ export const getStyles = (isDarkMode) => {
     personDetailIcon: {
       marginRight:8,
     },
+    personDetailImage: {
+      flex: 1,
+      height: 200,
+      resizeMode: "cover",
+      width: null,
+      borderRadius: 8,
+    },
+    personDetailName: {
+      // color: colors.blue,
+      fontWeight: "bold",
+      fontSize: 32,
+    },
+    personDetailText: {
+      fontSize: 16,
+    },
     personDetailWrapper: {
       flex: 1,
       flexDirection: "row",
@@ -81,8 +96,8 @@ export const getStyles = (isDarkMode) => {
     personListItemImage:{
       borderRadius: 8,
       height: 64,
-      width: 64,
       resizeMode: "cover",
+      width: 64,
     },
     personListItemTextWrapper: {
       flex: 1,
@@ -92,6 +107,7 @@ export const getStyles = (isDarkMode) => {
     screen: {
       ...adaptiveDarkModeColors,
       flex: 1,
+      minHeight: 100,
       // hack to prevent navBar from blocking part of content
       paddingBottom: 24,
     },

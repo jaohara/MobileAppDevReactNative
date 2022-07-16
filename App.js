@@ -7,7 +7,6 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaView, StatusBar, useColorScheme } from 'react-native';
 
 import NavHeader from './components/NavHeader';
-import Header from './components/Header';
 
 import HomeScreen from './components/Screens/HomeScreen';
 import PeopleScreen from './components/Screens/PeopleScreen';
@@ -15,10 +14,11 @@ import PersonDetailScreen from './components/Screens/PersonDetailsScreen';
 
 import { getStyles, getStatusBarColor } from './styles/styles';
 
+export const IMAGE_ROUTE = "http://placeimg.com/640/480/people";
 export const AppContext = React.createContext();
 const Stack = createNativeStackNavigator();
 
-const DEBUG_LOGGING = true;
+const DEBUG_LOGGING = false;
 
 const App = () => {
   const isDarkMode = useColorScheme() === 'dark';
@@ -26,21 +26,24 @@ const App = () => {
   const statusBarBgColor = getStatusBarColor(isDarkMode);
 
   const [ currentPerson, setCurrentPerson ] = useState(null);
+  const [ currentPersonIndex, setCurrentPersonIndex ] = useState(undefined);
   const [ people, setPeople ] = useState([]);
   const [ peopleLoaded, setPeopleLoaded ] = useState(false);
   const [ peopleImages, setPeopleImages ] = useState([]);
   const [ peopleImagesLoaded, setPeopleImagesLoaded ] = useState(false);
 
-  const peopleScreenProps = {
+  const peopleScreenContext = {
     currentPerson: currentPerson,
+    currentPersonIndex: currentPersonIndex,
     people: people,
-    // peopleImages: peopleImages,
-    // peopleImagesLoaded: peopleImagesLoaded,
+    peopleImages: peopleImages,
+    peopleImagesLoaded: peopleImagesLoaded,
     peopleLoaded: peopleLoaded,
     setCurrentPerson: setCurrentPerson,
+    setCurrentPersonIndex: setCurrentPersonIndex,
     setPeople: setPeople,
-    // setPeopleImages: setPeopleImages,
-    // setPeopleImagesLoaded: setPeopleImagesLoaded,
+    setPeopleImages: setPeopleImages,
+    setPeopleImagesLoaded: setPeopleImagesLoaded,
     setPeopleLoaded: setPeopleLoaded,
   };
 
@@ -49,7 +52,8 @@ const App = () => {
     return ({
       isDarkMode: isDarkMode,
       peopleApiRoute: "https://fakerapi.it/api/v1/users?_quantity=10",
-      ...peopleScreenProps,
+      imageRoute: IMAGE_ROUTE,
+      ...peopleScreenContext,
     });
   };
 
@@ -85,7 +89,6 @@ const App = () => {
       screenOptions={{
         headerBackVisible: true,
         headerShadowVisible: false,
-        // header: (headerObj) => getNavHeader(headerObj),
         headerStyle: {
           backgroundColor: styles.backgroundStyle.backgroundColor
         },
@@ -100,13 +103,11 @@ const App = () => {
       <Stack.Screen 
         name="People" 
         component={PeopleScreen} 
-        // initialParams={peopleScreenProps}
       />
       
       <Stack.Screen 
         name="Person" 
         component={PersonDetailScreen}
-        // initialParams={peopleScreenProps}
       />
     </Stack.Navigator>
   );

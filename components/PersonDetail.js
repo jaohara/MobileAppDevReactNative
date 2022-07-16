@@ -14,7 +14,7 @@ const iconStrings = {
 };
 
 const DEFAULT_COLOR = "blue";
-const ICON_SIZE = 16;
+const ICON_SIZE = 24;
 
 const PersonDetail = ({ color = DEFAULT_COLOR, icon = "none", value }) => {
   const { styles } = useStyles();
@@ -44,7 +44,7 @@ const PersonDetail = ({ color = DEFAULT_COLOR, icon = "none", value }) => {
   return (
     <View style={styles.personDetailWrapper}>
       { iconStringIsValid() && getIcon() }
-      <Text style={{...styles.text, ...styles.detailText}}>
+      <Text style={{...styles.text, ...styles.personDetailText}}>
         {value}
       </Text>
     </View>

@@ -7,14 +7,14 @@ import Header from './Header';
 import useStyles from '../hooks/useStyles';
 
 
-const Screen = ({ children, isScrollView = true, title }) => {
+const Screen = ({ children, isScrollView = true, title, style ={} }) => {
   const { styles } = useStyles();
 
   const renderView = () => {
     const viewChildren = React.Children.map(children, (child) => 
       React.cloneElement(child, { style: styles.screenText }));
 
-    const viewStyle = {...styles.backgroundStyle, ...styles.screen};
+    const viewStyle = {...styles.backgroundStyle, ...styles.screen, ...style};
 
     return (
       isScrollView ? (

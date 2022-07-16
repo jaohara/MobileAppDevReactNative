@@ -1,21 +1,45 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect} from 'react';
 
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
+import Screen from '../Screen';
 import PersonDetail from '../PersonDetail';
-
-import { colors } from '../../styles/styles';
-import useStyles from '../../hooks/useStyles';
 
 import { AppContext } from '../../App';
 
-const PersonDetailsScreen = ({ children, person }) => {
-  const { styles } = useStyles();
-  const { currentPerson } = useContext(AppContext);
+const PersonDetailsScreen = ({ navigation }) => {
+  const { 
+    currentPerson: person,
+    currentPersonIndex,
+    peopleImages, 
+  } = useContext(AppContext);
+
+  const image = peopleImages[currentPersonIndex];
+  // navigation.setOptions({ headerTitle: `${person.firstname} ${person.lastname}` });
+
+  // TODO: Remove debug logging
+  // useEffect(() => {
+  //   console.log("person:");
+  //   console.log(person);
+  //   console.log("currentPersonIndex:");
+  //   console.log(currentPersonIndex);
+  //   console.log("image:");
+  //   console.log(image);
+  //   console.log(typeof image)
+  // }, []);
+
 
   return (
-    <View>
-      <Text>{currentPerson.firstname} {currentPerson.lastname}</Text>
-    </View>
+    <Screen>
+      <View>
+        { image }
+      </View>
+
+      <View>
+        <PersonDetail icon='email' value={person.email} />
+        <PersonDetail icon='username' value={person.username} />
+        <PersonDetail icon='website' value={person.website} />
+      </View>
+    </Screen>
   );
 };
 

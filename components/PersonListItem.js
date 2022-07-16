@@ -1,21 +1,30 @@
 import React from 'react';
 
-import { Text, TouchableHighlight, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Ionicons';
 
 import useStyles from '../hooks/useStyles';
 import { colors } from '../styles/styles';
 
-const PersonListItem = ({ navigation, person, setCurrentPerson }) => {
+const PersonListItem = ({ 
+  index, 
+  navigation, 
+  person, 
+  setCurrentPerson,
+  setCurrentPersonIndex, 
+}) => {
   const { styles } = useStyles();
+
+  const personName = `${person.firstname} ${person.lastname}`;
 
   const handlePress = () => {
     setCurrentPerson(person);
-    navigation && navigation.navigate("Person");
+    setCurrentPersonIndex(index);
+    navigation && navigation.navigate("Person", {name: personName});
   }
 
   return (
-    <TouchableHighlight
+    <TouchableOpacity
       onPress={() => handlePress()}
     >
       <View style={styles.listItem}>
@@ -26,11 +35,11 @@ const PersonListItem = ({ navigation, person, setCurrentPerson }) => {
           />
         <View style={styles.personListItemTextWrapper}>
           <Text style={{...styles.text, ...styles.nameText}}>
-            {`${person.firstname} ${person.lastname}`}
+            {personName}
           </Text>
         </View>
       </View>
-    </TouchableHighlight>
+    </TouchableOpacity>
   );
 };
 
