@@ -28,7 +28,7 @@ export const getStyles = (isDarkMode) => {
     },
     buttons: {
       borderRadius: 8,
-      color: colors.green,
+      color: colors.blue,
       margin: 8,
     },
     buttonWrapper: {

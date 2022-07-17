@@ -49,11 +49,14 @@ const HomeScreen = ({ navigation, children }) => {
         other screens and see if I can find my way back.
       </Text>
 
-      <Button
-        title='People Screen'
-        onPress={() => navigation && navigation.navigate("People")}
-        color={styles.buttons.color}
-      />
+      <View>
+        <Button
+          title='People Screen'
+          onPress={() => navigation && navigation.navigate("People")}
+          color={styles.buttons.color}
+        />
+      </View>
+
     </Screen>
   );
 };

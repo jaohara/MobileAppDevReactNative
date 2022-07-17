@@ -22,6 +22,7 @@ const PeopleScreen = ({ navigation, children }) => {
     peopleApiRoute, 
     setCurrentPerson,
     setCurrentPersonIndex,
+    setCurrentPersonTitle,
     setPeople,
     setPeopleImages,
     setPeopleImagesLoaded, 
@@ -34,8 +35,9 @@ const PeopleScreen = ({ navigation, children }) => {
       navigation={navigation}
       index={index}
       person={item}
-      setCurrentPersonIndex={setCurrentPersonIndex}
       setCurrentPerson={setCurrentPerson}
+      setCurrentPersonIndex={setCurrentPersonIndex}
+      setCurrentPersonTitle={setCurrentPersonTitle}
     />);
 
   const fetchPeople = () => {

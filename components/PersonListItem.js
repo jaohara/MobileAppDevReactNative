@@ -11,7 +11,8 @@ const PersonListItem = ({
   navigation, 
   person, 
   setCurrentPerson,
-  setCurrentPersonIndex, 
+  setCurrentPersonIndex,
+  setCurrentPersonTitle,
 }) => {
   const { styles } = useStyles();
 
@@ -19,6 +20,7 @@ const PersonListItem = ({
 
   const handlePress = () => {
     setCurrentPerson(person);
+    setCurrentPersonTitle(personName);
     setCurrentPersonIndex(index);
     navigation && navigation.navigate("Person", {name: personName});
   }

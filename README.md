@@ -14,6 +14,4 @@
   - [x] Wrap the `PersonListItem` component in a `TouchableOpacity` to allow navigation to `PersonDetailsScreen`
 - [x] Allow navigation back to each screen's parent (`Home -> People -> Person Details`) in the status bar
 - [x] Complete `PeopleScreen.js` to display the person's image, as well as a list of their details
-- [ ] Make loading view components to display while the page is loading?
-- [ ] Remove button for navigation from `Home -> People` and make a more attractive `TouchableOpacity`-based nav card
-- [ ] Fix Person Page Header
+- [x] Fix Person Page Header

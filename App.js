@@ -27,6 +27,7 @@ const App = () => {
 
   const [ currentPerson, setCurrentPerson ] = useState(null);
   const [ currentPersonIndex, setCurrentPersonIndex ] = useState(undefined);
+  const [ currentPersonTitle, setCurrentPersonTitle ] = useState("Person Test");
   const [ people, setPeople ] = useState([]);
   const [ peopleLoaded, setPeopleLoaded ] = useState(false);
   const [ peopleImages, setPeopleImages ] = useState([]);
@@ -35,12 +36,14 @@ const App = () => {
   const peopleScreenContext = {
     currentPerson: currentPerson,
     currentPersonIndex: currentPersonIndex,
+    currentPersonTitle: currentPersonTitle,
     people: people,
     peopleImages: peopleImages,
     peopleImagesLoaded: peopleImagesLoaded,
     peopleLoaded: peopleLoaded,
     setCurrentPerson: setCurrentPerson,
     setCurrentPersonIndex: setCurrentPersonIndex,
+    setCurrentPersonTitle: setCurrentPersonTitle,
     setPeople: setPeople,
     setPeopleImages: setPeopleImages,
     setPeopleImagesLoaded: setPeopleImagesLoaded,
@@ -83,6 +86,12 @@ const App = () => {
     </NavHeader>
   );
 
+  const personScreenOptions = {
+    // headerTitle: currentPerson !== null ? 
+    //   `${currentPerson.firstname} ${currentPerson.lastname}` : "Person",
+    headerTitle: currentPersonTitle,
+  }
+
   const getNavStack = () => (
     <Stack.Navigator
       initialRouteName='Home'
@@ -108,6 +117,7 @@ const App = () => {
       <Stack.Screen 
         name="Person" 
         component={PersonDetailScreen}
+        options={personScreenOptions}
       />
     </Stack.Navigator>
   );
